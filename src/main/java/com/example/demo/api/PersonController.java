@@ -35,11 +35,13 @@ public class PersonController {
         return personService.selectPersonById(id).orElse(null);
     }
 
-    public int deletePersonById(UUID id) {
-        return 0;
+    @PostMapping("/api/v1/person/{id}")
+    public void deletePersonById(@PathVariable("id") UUID id) {
+        personService.deletePersonById(id);
     }
 
-    public int updatePersonById(UUID id, Person person) {
-        return 0;
+    @PutMapping("/api/v1/person/{id}")
+    public void updatePersonById(@PathVariable("id") UUID id, Person person) {
+        personService.updatePersonById(id, person);
     }
 }

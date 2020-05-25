@@ -33,10 +33,10 @@ public class PersonService {
     }
 
     public int deletePersonById(UUID id) {
-        return 0;
+        return personDao.deletePersonById(id);
     }
 
     public int updatePersonById(UUID id, Person person) {
-        return 0;
+        return personDao.updatePersonById(id, person);
     }
 }
