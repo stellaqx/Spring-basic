@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 public class Person {
+    private UUID id;
+    private String name;
+
     public Person(@JsonProperty("id") UUID id,
                   @JsonProperty("name") String name) {
         this.name = name;
-        if (id == null || id.toString().isEmpty()) {
-            this.id = UUID.randomUUID();
-        } else {
-            this.id = id;
-        }
+        this.id = id;
     }
 
     public UUID getId() {
@@ -23,6 +22,11 @@ public class Person {
         return name;
     }
 
-    private final UUID id;
-    private final String name;
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

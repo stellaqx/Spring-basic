@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,17 +32,17 @@ public class PersonController {
 
 //    @GetMapping(path="{id}")
     @GetMapping("/api/v1/person/{id}")
-    public Person selectPersonById(@PathVariable("id") UUID id) {
+    public Person selectPersonById(@PathVariable("id") @NonNull UUID id) {
         return personService.selectPersonById(id).orElse(null);
     }
 
     @PostMapping("/api/v1/person/{id}")
-    public void deletePersonById(@PathVariable("id") UUID id) {
+    public void deletePersonById(@PathVariable("id") @NonNull UUID id) {
         personService.deletePersonById(id);
     }
 
     @PutMapping("/api/v1/person/{id}")
-    public void updatePersonById(@PathVariable("id") UUID id, Person person) {
+    public void updatePersonById(@PathVariable("id") @NonNull UUID id, @RequestBody Person person) {
         personService.updatePersonById(id, person);
     }
 }

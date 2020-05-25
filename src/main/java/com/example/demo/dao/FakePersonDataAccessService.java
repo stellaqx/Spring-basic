@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Person;
+import com.example.demo.utils.PersonUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class FakePersonDataAccessService implements PersonDao {
     @Override
     public Optional<Person> selectPersonById(UUID id) {
         return DB.stream()
-                .filter(person -> person.getId().equals(id))
+                .filter(person -> id.equals(person.getId()))
                 .findAny();
     }
 
@@ -42,15 +44,11 @@ public class FakePersonDataAccessService implements PersonDao {
 
     @Override
     public int updatePersonById(UUID id, Person person) {
-        return selectPersonById(id)
-                .map(p -> {
-                    int indexOfPersonToUpdate = DB.indexOf(p);
-                    if (indexOfPersonToUpdate >= 0) {
-                        DB.set(indexOfPersonToUpdate, person);
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }).orElse(0);
+        Optional<Person> personOptional = selectPersonById(id);
+        if (!personOptional.isPresent()) return 0;
+        int index = DB.indexOf(personOptional.get());
+        PersonUtils.personQualifierUpdate(id, person);
+        DB.set(index, person);
+        return 1;
     }
 }
