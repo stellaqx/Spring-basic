@@ -17,8 +17,6 @@ public class PersonUtils {
     }
 
     public static void personQualifierUpdate(UUID id, Person person) {
-        if (person.getId() == null || person.getId().toString().isEmpty()) {
-            person.setId(id);
-        }
+        person.setId(id);
     }
 }
