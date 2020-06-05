@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
 import com.example.demo.model.Person;
+import com.example.demo.utils.PersonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,12 @@ public class PersonService {
     private final PersonDao personDao;
 
     @Autowired
-    public PersonService(@Qualifier("postgres") PersonDao personDao) {
+    public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
         this.personDao = personDao;
     }
 
     public int addPerson(Person person) {
+        PersonUtils.personQualifierAdd(person);
         return personDao.addPerson(person);
     }
 
@@ -37,6 +39,7 @@ public class PersonService {
     }
 
     public int updatePersonById(UUID id, Person person) {
+        PersonUtils.personQualifierUpdate(id, person);
         return personDao.updatePersonById(id, person);
     }
 }
