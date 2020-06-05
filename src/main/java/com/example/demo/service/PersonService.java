@@ -14,11 +14,11 @@ import java.util.UUID;
 @Service
 public class PersonService {
 
-    private final PersonDao personDao;
-
     @Autowired
-    public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
-        this.personDao = personDao;
+    @Qualifier("fakeDao")
+    private PersonDao personDao;
+
+    public PersonService() {
     }
 
     public int addPerson(Person person) {

@@ -13,11 +13,11 @@ import java.util.UUID;
 //@RequestMapping("api/v1/person")
 @RestController
 public class PersonController {
-    private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    private PersonService personService;
+
+    public PersonController() {
     }
 
     @PostMapping("/api/v1/person")
